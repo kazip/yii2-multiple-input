@@ -13,6 +13,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\BaseHtml;
 use yii\widgets\ActiveForm;
 use yii\widgets\InputWidget;
 use yii\db\ActiveRecordInterface;
@@ -251,9 +252,7 @@ class MultipleInput extends InputWidget
         }
 
         if ($this->model instanceof Model) {
-            $data = ($this->model->hasProperty($this->attribute) || isset($this->model->{$this->attribute}))
-                ? ArrayHelper::getValue($this->model, $this->attribute, [])
-                : [];
+            $data = BaseHtml::getAttributeValue($this->model, $this->attribute);
 
             if (!is_array($data) && empty($data)) {
                 return;
